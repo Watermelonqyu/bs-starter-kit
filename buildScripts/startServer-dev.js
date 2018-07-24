@@ -1,4 +1,7 @@
 import browserSync from 'browser-sync';
+import webpackConf from '../webpack.config.dev';
+import webpack from 'webpack';
+import chalk from 'chalk';
 
 var bsServer = browserSync.create();
 
@@ -14,8 +17,18 @@ bsServer.watch("css/*.css", function (event, file) {
     }
 });
 
+webpack(webpackConf, (err, stats) => {
+    if (err || stats.hasErrors()) {
+        // Handle errors here
+        console.log(chalk.red(err, stats));
+    }
+    // Done processing
+  });
+
 
 // init starts the server
 bsServer.init({
-    server: './app'
+    // server: './app'
+    // for production
+    server: './devBuild'
 });

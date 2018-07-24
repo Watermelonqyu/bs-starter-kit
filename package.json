@@ -4,9 +4,16 @@
   "description": "Javascript Starter Kit with Browser Sync",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node buildScripts/startServer.js",
+    "start-server-prod": "babel-node buildScripts/startServer-prod.js",
+    "start-server-dev": "babel-node buildScripts/startServer-dev.js",
+    "clean-dev": "rmdir devBuild /Q /S && mkdir devBuild",
+    "clean-dist": "rmdir dist /Q /S && mkdir dist",
+    "start-prod": "npm-run-all security-check clean-dist start-server-prod",
+    "start-dev": "npm-run-all security-check clean-dev start-server-dev",
+    "watch": "webpack --watch",
     "startlt": " lt --port 3000",
     "share": "npm-run-all start startlt",
+    "security-check": "nsp check",
     "test": "npm test"
   },
   "repository": {
@@ -26,9 +33,21 @@
   "homepage": "https://github.com/Watermelonqyu/bs-starter-kit#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "browser-sync": "^2.24.6",
+    "chalk": "^2.4.1",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^1.0.0",
+    "html-webpack-plugin": "^3.2.0",
     "localtunnel": "^1.9.0",
-    "npm-run-all": "^4.1.3"
-  }
+    "mini-css-extract-plugin": "^0.4.1",
+    "npm-run-all": "^4.1.3",
+    "nsp": "^3.2.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.0",
+    "path": "^0.12.7",
+    "uglifyjs-webpack-plugin": "^1.2.7",
+    "webpack": "^4.16.2"
+  },
+  "dependencies": {}
 }
